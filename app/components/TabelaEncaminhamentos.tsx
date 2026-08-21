@@ -51,8 +51,7 @@ Nome: ${nomeFormatado} | CPF:
 Tipo de Exame: ${exameFormatado}
 Função: ${cargoFormatado}
 
-Seguindo bateria de exames conforme PCMSO
-Área: Carbonor`;
+Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
 
         return textoBase.replace(/CARBONOR/gi, 'Carbonor');
     };
