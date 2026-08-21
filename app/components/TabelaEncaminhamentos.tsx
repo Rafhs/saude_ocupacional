@@ -48,6 +48,7 @@ Empresa: ${guia.empresa}
 CNPJ: ${guia.cnpj}
 
 Nome: ${nomeFormatado} | CPF: 
+
 Tipo de Exame: ${exameFormatado}
 Função: ${cargoFormatado}
 
