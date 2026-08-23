@@ -36,15 +36,17 @@ export default function TabelaEncaminhamentos({ data }: { data: FuncionarioAlert
     if (!data || data.length === 0) return null;
 
     const gerarTextoFormatado = (guia: FuncionarioAlerta) => {
+        // Aplicando a capitalização (Maiúscula apenas no início) para todos os campos
         const nomeFormatado = capitalizar(guia.nome);
         const exameFormatado = capitalizar(guia.tipoExame);
         const cargoFormatado = capitalizar(guia.cargo);
+        const empresaFormatada = capitalizar(guia.empresa); // <- Ajuste aplicado aqui!
 
         const textoBase = `Srs (as),
 
-Autorizamos os funcionários abaixo a realizar exame Periódico pela empresa: ${guia.empresa}
+Autorizamos os funcionários abaixo a realizar exame Periódico pela empresa: ${empresaFormatada}
 
-Empresa: ${guia.empresa}
+Empresa: ${empresaFormatada}
 CNPJ: ${guia.cnpj}
 
 Nome: ${nomeFormatado} | CPF: 
