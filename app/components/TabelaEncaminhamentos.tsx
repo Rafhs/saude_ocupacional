@@ -19,6 +19,9 @@ export default function TabelaEncaminhamentos({ data }: { data: FuncionarioAlert
     const [isPending, startTransition] = useTransition();
     const [guiaSelecionada, setGuiaSelecionada] = useState<FuncionarioAlerta | null>(null);
 
+    // Novo estado para controlar o efeito de "Copiado" do botão
+    const [copiado, setCopiado] = useState(false);
+
     const [filtroEmpresa, setFiltroEmpresa] = useState('');
     const [filtroStatus, setFiltroStatus] = useState('');
 
@@ -36,11 +39,10 @@ export default function TabelaEncaminhamentos({ data }: { data: FuncionarioAlert
     if (!data || data.length === 0) return null;
 
     const gerarTextoFormatado = (guia: FuncionarioAlerta) => {
-        // Aplicando a capitalização (Maiúscula apenas no início) para todos os campos
         const nomeFormatado = capitalizar(guia.nome);
         const exameFormatado = capitalizar(guia.tipoExame);
         const cargoFormatado = capitalizar(guia.cargo);
-        const empresaFormatada = capitalizar(guia.empresa); // <- Ajuste aplicado aqui!
+        const empresaFormatada = capitalizar(guia.empresa);
 
         const textoBase = `Srs (as),
 
@@ -50,11 +52,11 @@ Empresa: ${empresaFormatada}
 CNPJ: ${guia.cnpj}
 
 Nome: ${nomeFormatado} | CPF: 
-
 Tipo de Exame: ${exameFormatado}
 Função: ${cargoFormatado}
 
-Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
+Seguindo bateria de exames conforme PCMSO
+Área: Carbonor`;
 
         return textoBase.replace(/CARBONOR/gi, 'Carbonor');
     };
@@ -63,7 +65,14 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
         if (!guiaSelecionada) return;
         const texto = gerarTextoFormatado(guiaSelecionada);
         navigator.clipboard.writeText(texto);
-        alert('Guia copiada com sucesso!');
+
+        // Ativa o estado visual de copiado
+        setCopiado(true);
+
+        // Desativa após 3 segundos (3000 milissegundos)
+        setTimeout(() => {
+            setCopiado(false);
+        }, 3000);
     };
 
     const atualizarDados = () => {
@@ -145,7 +154,10 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <button
-                                            onClick={() => setGuiaSelecionada(func)}
+                                            onClick={() => {
+                                                setGuiaSelecionada(func);
+                                                setCopiado(false); // Reseta o botão de copiar caso selecione outro funcionário
+                                            }}
                                             className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors shadow-sm"
                                         >
                                             Gerar Guia
@@ -174,12 +186,37 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                     <div className="flex justify-between items-center mb-4">
                         <h3 className="font-bold text-slate-800 text-lg">Documento de Encaminhamento</h3>
                         <div className="flex gap-3">
-                            <button onClick={() => setGuiaSelecionada(null)} className="text-slate-500 hover:text-slate-700 text-sm font-medium px-3 py-1.5">Fechar</button>
-                            <button onClick={copiarParaAreaDeTransferencia} className="bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 px-4 py-1.5 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
-                                </svg>
-                                Copiar Texto
+                            <button
+                                onClick={() => setGuiaSelecionada(null)}
+                                className="text-slate-500 hover:text-slate-700 text-sm font-medium px-3 py-1.5"
+                            >
+                                Fechar
+                            </button>
+
+                            {/* BOTÃO MÁGICO QUE MUDA DE ESTADO */}
+                            <button
+                                onClick={copiarParaAreaDeTransferencia}
+                                className={`px-4 py-1.5 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2 border ${
+                                    copiado
+                                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                                        : 'bg-white border-slate-300 hover:bg-slate-100 text-slate-700'
+                                }`}
+                            >
+                                {copiado ? (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                        </svg>
+                                        Copiado!
+                                    </>
+                                ) : (
+                                    <>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
+                                        </svg>
+                                        Copiar Texto
+                                    </>
+                                )}
                             </button>
                         </div>
                     </div>
