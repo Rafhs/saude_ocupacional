@@ -52,11 +52,11 @@ Empresa: ${empresaFormatada}
 CNPJ: ${guia.cnpj}
 
 Nome: ${nomeFormatado} | CPF: 
+
 Tipo de Exame: ${exameFormatado}
 Função: ${cargoFormatado}
 
-Seguindo bateria de exames conforme PCMSO
-Área: Carbonor`;
+Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
 
         return textoBase.replace(/CARBONOR/gi, 'Carbonor');
     };
@@ -72,7 +72,7 @@ Seguindo bateria de exames conforme PCMSO
         // Desativa após 3 segundos (3000 milissegundos)
         setTimeout(() => {
             setCopiado(false);
-        }, 3000);
+        }, 5000);
     };
 
     const atualizarDados = () => {
