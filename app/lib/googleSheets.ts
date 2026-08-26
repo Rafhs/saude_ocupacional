@@ -1,26 +1,35 @@
 import { google } from 'googleapis';
 
 export async function getExamesOcupacionais() {
-    // 1. Validação de segurança: Verifica se a variável existe antes de prosseguir
-    if (!process.env.SHEET_ID) {
-        console.error("ERRO CRÍTICO: SHEET_ID não foi encontrado no arquivo .env.local");
-        return [];
-    }
-
     try {
+        // 1. Puxa as variáveis de ambiente com os nomes exatos do Vercel
+        const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+        const privateKey = process.env.GOOGLE_PRIVATE_KEY;
+        const sheetId = process.env.SHEET_ID;
+
+        // Se faltar alguma variável no Vercel, ele avisa no painel de logs
+        if (!clientEmail || !privateKey || !sheetId) {
+            console.error("Faltam variáveis de ambiente (E-mail, Chave ou ID da Planilha).");
+            return [];
+        }
+
+        // 2. O VERCEL QUEBRA AS LINHAS DA CHAVE. Esta linha conserta a chave magicamente!
+        const chaveFormatada = privateKey.replace(/\\n/g, '\n');
+
+        // 3. Faz a autenticação usando as variáveis isoladas
         const auth = new google.auth.GoogleAuth({
             credentials: {
-                client_email: process.env.GOOGLE_CLIENT_EMAIL,
-                private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+                client_email: clientEmail,
+                private_key: chaveFormatada,
             },
             scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
         });
 
         const sheets = google.sheets({ version: 'v4', auth });
 
-        // 2. Agora é seguro fazer a chamada
+        // 4. Faz a requisição dos dados
         const response = await sheets.spreadsheets.values.get({
-            spreadsheetId: process.env.SHEET_ID,
+            spreadsheetId: sheetId,
             range: 'dados!A:G',
         });
 
