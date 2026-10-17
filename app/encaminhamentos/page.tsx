@@ -10,7 +10,7 @@ export default async function EncaminhamentosPage() {
     const linhas = (dadosPlanilha && dadosPlanilha.length > 1) ? dadosPlanilha.slice(1) : [];
 
     const listaParaEncaminhamento = linhas
-        .map((linha: any[]) => {
+        .map((linha: string[]) => {
             const dataExame = linha[6] || '-';
             const statusObj = obterStatusExame(dataExame);
 

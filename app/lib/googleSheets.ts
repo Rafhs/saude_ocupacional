@@ -1,6 +1,20 @@
 import { google } from 'googleapis';
+import { gerarDadosDemonstracao } from './mockData';
 
-export async function getExamesOcupacionais() {
+/** Quando true, a aplicação usa dados fictícios em vez do Google Sheets. */
+export function usandoDadosDemonstracao() {
+    return process.env.USE_MOCK_DATA === 'true';
+}
+
+/**
+ * Lê a aba "dados" (colunas A:G) da planilha. A primeira linha é o cabeçalho:
+ * Nome | Empresa | CNPJ | Área | Cargo | Tipo de Exame | Data do Exame (dd/mm/aaaa)
+ */
+export async function getExamesOcupacionais(): Promise<string[][]> {
+    if (usandoDadosDemonstracao()) {
+        return gerarDadosDemonstracao();
+    }
+
     try {
         // 1. Puxa as variáveis de ambiente com os nomes exatos do Vercel
         const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
@@ -33,7 +47,8 @@ export async function getExamesOcupacionais() {
             range: 'dados!A:G',
         });
 
-        return response.data.values;
+        // A API retorna `undefined` quando a aba está vazia.
+        return (response.data.values as string[][] | null | undefined) ?? [];
     } catch (error) {
         console.error("Erro ao buscar dados do Google Sheets:", error);
         return [];

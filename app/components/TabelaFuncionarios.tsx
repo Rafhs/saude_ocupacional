@@ -3,16 +3,9 @@
 import { useState, useTransition, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { obterStatusExame } from '../lib/utils';
+import type { Funcionario } from '../lib/exames';
 
-export interface Funcionario {
-    nome: string;
-    empresa: string;
-    cnpj: string;
-    area: string;
-    cargo: string;
-    tipoExame: string;
-    dataExame: string;
-}
+export type { Funcionario };
 
 export default function TabelaFuncionarios({ data }: { data: Funcionario[] }) {
     const router = useRouter();
