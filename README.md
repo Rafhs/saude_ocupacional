@@ -30,23 +30,6 @@ A aplicação lê a aba **`dados`**, colunas **A:G**. A primeira linha é o cabe
 |---|---|---|---|---|---|---|
 | Nome | Empresa | CNPJ | Área | Cargo | Tipo de Exame | Data do Exame (`dd/mm/aaaa`) |
 
-## 🚀 Executando Localmente
-
-1. Instale as dependências: `npm install`
-2. Crie um arquivo `.env.local` (já ignorado pelo Git) com as credenciais da conta de serviço:
-
-   ```env
-   GOOGLE_CLIENT_EMAIL=sua-conta@projeto.iam.gserviceaccount.com
-   GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-   SHEET_ID=id-da-planilha
-   ```
-
-   > Compartilhe a planilha com o e-mail da conta de serviço (permissão de leitor).
-
-3. Rode `npm run dev` e acesse `http://localhost:3000`.
-
-**Sem credenciais?** Use o modo de demonstração com dados fictícios: `USE_MOCK_DATA=true npm run dev`.
-
 ## 🛠️ Tecnologias Utilizadas
 
 *   **Next.js** — Framework React com App Router.
