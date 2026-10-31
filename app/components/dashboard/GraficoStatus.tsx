@@ -27,21 +27,21 @@ export default function GraficoStatus({ contagem, conformidade }: Props) {
                     </PieChart>
                 </ResponsiveContainer>
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-2xl font-black text-slate-800">{formatarPercentual(conformidade, 0)}</span>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">em dia</span>
+                    <span className="text-2xl font-black text-slate-800 dark:text-slate-100">{formatarPercentual(conformidade, 0)}</span>
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">em dia</span>
                 </div>
             </div>
 
             <ul className="mt-4 space-y-2">
                 {STATUS_ORDEM.filter((s) => s !== 'Sem data' || contagem[s] > 0).map((s) => (
                     <li key={s} className="flex items-center justify-between text-sm">
-                        <span className="flex items-center gap-2 text-slate-600">
+                        <span className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
                             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: STATUS_CORES[s] }} />
                             {s}
                         </span>
-                        <span className="font-semibold text-slate-800 tabular-nums">
+                        <span className="font-semibold text-slate-800 dark:text-slate-100 tabular-nums">
                             {contagem[s]}
-                            <span className="ml-2 text-xs font-medium text-slate-400">
+                            <span className="ml-2 text-xs font-medium text-slate-400 dark:text-slate-500">
                                 {total > 0 ? formatarPercentual((contagem[s] / total) * 100, 0) : '0%'}
                             </span>
                         </span>

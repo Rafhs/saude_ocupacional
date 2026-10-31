@@ -16,7 +16,7 @@ export default function GraficoProjecao({ data }: { data: PontoProjecao[] }) {
             titulo="Projeção de vencimentos"
             subtitulo="Exames em atraso e quantos vencem em cada um dos próximos 12 meses"
             acao={
-                <div className="hidden md:flex items-center gap-3 text-xs text-slate-500">
+                <div className="hidden md:flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
                     <Legenda cor={CORES.atrasado} texto="Atrasados" />
                     <Legenda cor={CORES.proximo} texto="Curto prazo" />
                     <Legenda cor={CORES.futuro} texto="Planejamento" />

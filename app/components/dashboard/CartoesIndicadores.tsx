@@ -23,24 +23,24 @@ interface CartaoProps {
 }
 
 const TONS = {
-    indigo: { icone: 'bg-indigo-50 text-indigo-600', anel: 'ring-indigo-500', foco: 'focus-visible:ring-indigo-500' },
-    emerald: { icone: 'bg-emerald-50 text-emerald-600', anel: 'ring-emerald-500', foco: 'focus-visible:ring-emerald-500' },
-    amber: { icone: 'bg-amber-50 text-amber-600', anel: 'ring-amber-500', foco: 'focus-visible:ring-amber-500' },
-    red: { icone: 'bg-red-50 text-red-600', anel: 'ring-red-500', foco: 'focus-visible:ring-red-500' },
-    sky: { icone: 'bg-sky-50 text-sky-600', anel: 'ring-sky-500', foco: 'focus-visible:ring-sky-500' },
+    indigo: { icone: 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400', anel: 'ring-indigo-500', foco: 'focus-visible:ring-indigo-500' },
+    emerald: { icone: 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400', anel: 'ring-emerald-500', foco: 'focus-visible:ring-emerald-500' },
+    amber: { icone: 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400', anel: 'ring-amber-500', foco: 'focus-visible:ring-amber-500' },
+    red: { icone: 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400', anel: 'ring-red-500', foco: 'focus-visible:ring-red-500' },
+    sky: { icone: 'bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400', anel: 'ring-sky-500', foco: 'focus-visible:ring-sky-500' },
 };
 
 function Cartao({ titulo, valor, detalhe, icone, tom, ativo, onClick, children }: CartaoProps) {
     const t = TONS[tom];
-    const base = 'text-left bg-white rounded-2xl border border-slate-200 shadow-sm p-5 transition-all';
+    const base = 'text-left bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-5 transition-all';
     const conteudo = (
         <>
             <div className="flex items-start justify-between gap-3">
-                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">{titulo}</p>
+                <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{titulo}</p>
                 <span className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${t.icone}`}>{icone}</span>
             </div>
-            <p className="text-3xl font-black text-slate-800 mt-2 tabular-nums">{valor}</p>
-            <p className="text-xs text-slate-500 mt-1">{detalhe}</p>
+            <p className="text-3xl font-black text-slate-800 dark:text-slate-100 mt-2 tabular-nums">{valor}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{detalhe}</p>
             {children}
         </>
     );
@@ -83,7 +83,7 @@ export default function CartoesIndicadores({ ind, totalEmpresas, totalAreas, sta
                 onClick={() => alternar('Válido')}
                 icone={<Icone d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />}
             >
-                <div className="mt-3 h-2 w-full rounded-full bg-slate-100 overflow-hidden" aria-hidden>
+                <div className="mt-3 h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden" aria-hidden>
                     <div className={`h-full rounded-full ${corBarra}`} style={{ width: `${Math.min(100, ind.conformidade)}%` }} />
                 </div>
             </Cartao>

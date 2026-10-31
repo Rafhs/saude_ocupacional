@@ -27,8 +27,8 @@ export default function GraficoGrupos({ titulo, subtitulo, data, onSelecionar, s
             {linhas.length === 0 ? (
                 <div className="h-[220px] flex flex-col items-center justify-center text-center">
                     <span className="text-3xl mb-2">🎉</span>
-                    <p className="text-sm font-semibold text-emerald-700">Nenhuma pendência</p>
-                    <p className="text-xs text-slate-500">Todos os exames estão em dia.</p>
+                    <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Nenhuma pendência</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Todos os exames estão em dia.</p>
                 </div>
             ) : (
                 <div style={{ height: altura }}>

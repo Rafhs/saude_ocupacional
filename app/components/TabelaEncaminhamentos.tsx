@@ -82,10 +82,10 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col">
 
-            <div className="p-6 border-b border-slate-200 bg-slate-50/50 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
-                <h2 className="text-lg font-bold text-slate-800">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">
                     Aguardando Encaminhamento
                 </h2>
 
@@ -93,7 +93,7 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                     <select
                         value={filtroEmpresa}
                         onChange={(e) => setFiltroEmpresa(e.target.value)}
-                        className="px-3 py-1.5 bg-white text-slate-900 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer flex-1 lg:flex-none"
+                        className="px-3 py-1.5 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer flex-1 lg:flex-none"
                     >
                         <option value="">Todas as Empresas</option>
                         {empresasUnicas.map((empresa, i) => <option key={i} value={empresa}>{empresa}</option>)}
@@ -102,7 +102,7 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                     <select
                         value={filtroStatus}
                         onChange={(e) => setFiltroStatus(e.target.value)}
-                        className="px-3 py-1.5 bg-white text-slate-900 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer flex-1 lg:flex-none"
+                        className="px-3 py-1.5 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer flex-1 lg:flex-none"
                     >
                         <option value="">Todos os Status</option>
                         {statusUnicos.map((status, i) => <option key={i} value={status}>{status}</option>)}
@@ -111,9 +111,9 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                     <button
                         onClick={atualizarDados}
                         disabled={isPending}
-                        className="flex items-center justify-center gap-2 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm transition-colors disabled:opacity-50 w-full sm:w-auto"
+                        className="flex items-center justify-center gap-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm transition-colors disabled:opacity-50 w-full sm:w-auto"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={`w-4 h-4 ${isPending ? 'animate-spin text-amber-600' : 'text-slate-500'}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className={`w-4 h-4 ${isPending ? 'animate-spin text-amber-600 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}`}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                         </svg>
                         {isPending ? 'Atualizando...' : 'Atualizar Dados'}
@@ -123,7 +123,7 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
 
             <div className="overflow-auto max-h-[500px]">
                 <table className="w-full text-left text-sm whitespace-nowrap relative">
-                    <thead className="bg-slate-50 text-slate-500 sticky top-0 z-10 shadow-[0_1px_0_0_#e2e8f0]">
+                    <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 sticky top-0 z-10 shadow-[0_1px_0_0_#e2e8f0] dark:shadow-[0_1px_0_0_#1e293b]">
                     <tr>
                         <th className="px-6 py-4 font-semibold w-[30%]">Funcionário</th>
                         <th className="px-6 py-4 font-semibold w-[20%]">Empresa</th>
@@ -133,22 +133,22 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                         <th className="px-6 py-4 font-semibold w-[10%] text-right">Ação</th>
                     </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     {dadosFiltrados.length > 0 ? (
                         dadosFiltrados.map((func, index) => {
                             const ehVencido = func.status === 'Vencido';
                             const estaSelecionado = guiaSelecionada?.nome === func.nome;
                             return (
-                                <tr key={index} className={`transition-colors ${estaSelecionado ? 'bg-indigo-50/50' : 'hover:bg-slate-50'}`}>
-                                    <td className="px-6 py-4"><p className="font-bold text-slate-800">{func.nome}</p></td>
-                                    <td className="px-6 py-4"><p className="font-medium text-slate-700">{func.empresa}</p></td>
+                                <tr key={index} className={`transition-colors ${estaSelecionado ? 'bg-indigo-50/50 dark:bg-indigo-500/10' : 'hover:bg-slate-50 dark:hover:bg-slate-800/60'}`}>
+                                    <td className="px-6 py-4"><p className="font-bold text-slate-800 dark:text-slate-100">{func.nome}</p></td>
+                                    <td className="px-6 py-4"><p className="font-medium text-slate-700 dark:text-slate-200">{func.empresa}</p></td>
                                     <td className="px-6 py-4">
-                                        <p className="text-slate-800 font-medium">{func.tipoExame}</p>
-                                        <p className="text-xs text-slate-500">{func.cargo}</p>
+                                        <p className="text-slate-800 dark:text-slate-100 font-medium">{func.tipoExame}</p>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">{func.cargo}</p>
                                     </td>
-                                    <td className="px-6 py-4 text-slate-600 font-medium">{func.dataExame}</td>
+                                    <td className="px-6 py-4 text-slate-600 dark:text-slate-300 font-medium">{func.dataExame}</td>
                                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-bold ring-1 ring-inset ${ehVencido ? 'bg-red-50 text-red-700 ring-red-600/20' : 'bg-amber-50 text-amber-700 ring-amber-600/20'}`}>
+                      <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-bold ring-1 ring-inset ${ehVencido ? 'bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-400 ring-red-600/20' : 'bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 ring-amber-600/20'}`}>
                         {func.status}
                       </span>
                                     </td>
@@ -168,7 +168,7 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                         })
                     ) : (
                         <tr>
-                            <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
+                            <td colSpan={6} className="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
                                 Nenhum registro encontrado para os filtros aplicados.
                             </td>
                         </tr>
@@ -177,18 +177,18 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                 </table>
             </div>
 
-            <div className="px-6 py-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 font-medium z-20 relative">
+            <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-xs text-slate-500 dark:text-slate-400 font-medium z-20 relative">
                 Mostrando {dadosFiltrados.length} registro(s) para encaminhamento
             </div>
 
             {guiaSelecionada && (
-                <div className="p-6 border-t border-slate-200 bg-slate-50">
+                <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60">
                     <div className="flex justify-between items-center mb-4">
-                        <h3 className="font-bold text-slate-800 text-lg">Documento de Encaminhamento</h3>
+                        <h3 className="font-bold text-slate-800 dark:text-slate-100 text-lg">Documento de Encaminhamento</h3>
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setGuiaSelecionada(null)}
-                                className="text-slate-500 hover:text-slate-700 text-sm font-medium px-3 py-1.5"
+                                className="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 text-sm font-medium px-3 py-1.5"
                             >
                                 Fechar
                             </button>
@@ -198,8 +198,8 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                                 onClick={copiarParaAreaDeTransferencia}
                                 className={`px-4 py-1.5 rounded-lg text-sm font-bold shadow-sm transition-colors flex items-center gap-2 border ${
                                     copiado
-                                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
-                                        : 'bg-white border-slate-300 hover:bg-slate-100 text-slate-700'
+                                        ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30 hover:bg-emerald-100 dark:hover:bg-emerald-500/20'
+                                        : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200'
                                 }`}
                             >
                                 {copiado ? (
@@ -220,7 +220,7 @@ Seguindo bateria de exames conforme PCMSO Área: Carbonor`;
                             </button>
                         </div>
                     </div>
-                    <div className="bg-white p-6 border border-slate-200 rounded-xl shadow-inner text-slate-800 font-mono text-sm whitespace-pre-wrap">
+                    <div className="bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner text-slate-800 dark:text-slate-100 font-mono text-sm whitespace-pre-wrap">
                         {gerarTextoFormatado(guiaSelecionada)}
                     </div>
                 </div>

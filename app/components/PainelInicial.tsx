@@ -64,25 +64,25 @@ export default function PainelInicial({ data, hojeMs, demonstracao = false }: Pr
 
     const temFiltro = empresa || area || statusTabela;
     const seletor =
-        'px-3 py-2 bg-white text-slate-900 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer min-w-0';
+        'px-3 py-2 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer min-w-0';
 
     return (
         <div className="space-y-6">
             {/* Cabeçalho e escopo da análise */}
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
                 <div>
-                    <h2 className="text-2xl font-black text-slate-800 tracking-tight">Visão geral</h2>
-                    <p className="text-sm text-slate-500 mt-1">
+                    <h2 className="text-2xl font-black text-slate-800 dark:text-slate-100 tracking-tight">Visão geral</h2>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                         Situação em {formatarDataBR(hojeMs)} · validade de 365 dias, alerta a partir de 330 dias
                         {demonstracao && (
-                            <span className="ml-2 inline-flex rounded-md bg-violet-50 px-2 py-0.5 text-xs font-bold text-violet-700 ring-1 ring-inset ring-violet-600/20">
+                            <span className="ml-2 inline-flex rounded-md bg-violet-50 dark:bg-violet-500/10 px-2 py-0.5 text-xs font-bold text-violet-700 dark:text-violet-300 ring-1 ring-inset ring-violet-600/20">
                                 Dados de demonstração
                             </span>
                         )}
                     </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
-                    <label className="flex flex-col text-xs font-semibold text-slate-500 gap-1">
+                    <label className="flex flex-col text-xs font-semibold text-slate-500 dark:text-slate-400 gap-1">
                         Empresa
                         <select
                             className={seletor}
@@ -100,7 +100,7 @@ export default function PainelInicial({ data, hojeMs, demonstracao = false }: Pr
                             ))}
                         </select>
                     </label>
-                    <label className="flex flex-col text-xs font-semibold text-slate-500 gap-1">
+                    <label className="flex flex-col text-xs font-semibold text-slate-500 dark:text-slate-400 gap-1">
                         Área
                         <select className={seletor} value={area} onChange={(e) => setArea(e.target.value)}>
                             <option value="">Todas as áreas</option>
@@ -119,7 +119,7 @@ export default function PainelInicial({ data, hojeMs, demonstracao = false }: Pr
                                 setArea('');
                                 setStatusTabela(null);
                             }}
-                            className="px-3 py-2 text-sm font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+                            className="px-3 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
                         >
                             Limpar filtros
                         </button>
@@ -168,12 +168,12 @@ export default function PainelInicial({ data, hojeMs, demonstracao = false }: Pr
             {/* Tabela detalhada */}
             <div ref={tabelaRef} className="scroll-mt-24 space-y-3 pt-2">
                 {statusTabela && (
-                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                         Exibindo apenas exames com status
                         <button
                             type="button"
                             onClick={() => setStatusTabela(null)}
-                            className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold text-indigo-700 hover:bg-indigo-100"
+                            className="inline-flex items-center gap-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-xs font-bold text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-500/20"
                         >
                             {statusTabela} ✕
                         </button>
@@ -182,8 +182,8 @@ export default function PainelInicial({ data, hojeMs, demonstracao = false }: Pr
                 {dadosTabela.length > 0 ? (
                     <TabelaFuncionarios data={dadosTabela} />
                 ) : (
-                    <div className="bg-white rounded-2xl p-10 text-center border border-slate-200 shadow-sm">
-                        <p className="text-slate-500">Nenhum registro para os filtros selecionados.</p>
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl p-10 text-center border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <p className="text-slate-500 dark:text-slate-400">Nenhum registro para os filtros selecionados.</p>
                     </div>
                 )}
             </div>
